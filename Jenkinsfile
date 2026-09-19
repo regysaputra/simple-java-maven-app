@@ -11,6 +11,7 @@ node {
 
     // 3. Define the Maven Docker image and mount the local .m2 cache
     docker.image('maven:3.9.9-eclipse-temurin-21').inside('-v $HOME/.m2:/root/.m2') {
+        def mavenOptions = '-B -ntp -Dmaven.wagon.http.retryHandler.count=5 -Daether.connector.basic.retryCount=5'
 
         stage('Build') {
             // Replaces 'npm install'
