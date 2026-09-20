@@ -24,17 +24,13 @@ node {
         }
 
         stage('Manual Approval') {
-            steps {
-                input message: 'Proceed to Deploy stage?', ok: 'Proceed'
-            }
+            input message: 'Proceed to Deploy stage?', ok: 'Proceed'
         }
 
         stage('Deploy') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-                sh 'sleep 60'
-                sh 'kill "${cat target/app.pid}"'
-            }
+            sh './jenkins/scripts/deliver.sh'
+            sh 'sleep 60'
+            sh 'kill "$(cat target/app.pid)"'
         }
     }
 }
